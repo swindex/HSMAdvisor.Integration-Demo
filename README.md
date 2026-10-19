@@ -223,5 +223,3 @@ You can distribute `HSMAdvisor.Integration.dll` with your integration. Calculati
 For questions, support, or licensing information, visit:
 - Website: https://hsmadvisor.com/
 - Download: https://hsmadvisor.com/download
-#   H S M A d v i s o r . I n t e g r a t i o n - D e m o  
- 
