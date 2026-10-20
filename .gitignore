@@ -3,3 +3,5 @@
 /.vs
 *.suo
 *.user
+native/sample/bin
+native/sample/obj

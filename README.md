@@ -17,7 +17,7 @@ The older [HSMAdvisor-DLL-Test](https://github.com/swindex/HSMAdvisor-DLL-Test) 
 - **It works with any .NET runtime.** `HSMAdvisor.Integration.dll` comes in a `net48` build and a `net8.0` build (usable from .NET 8/10 hosts such as Mastercam 2027). `HSMAdvisorCore.dll` only runs on .NET Framework.
 - **HSMAdvisor updates itself.** Your integration does not ship HSMAdvisor binaries. It works with whatever HSMAdvisor version is installed, as long as it is at least the minimum version you set.
 - **Licensing and user data stay in HSMAdvisor.** Calculations use the user's own materials, machines, tool library and license.
-- **Other languages can use it too.** The wire format is length-prefixed JSON, so Python, C++ and other clients can talk to the pipe directly. The "Raw Pipe Protocol" task shows how.
+- **Other languages can use it too.** The wire format is length-prefixed JSON, so Python, C++ and other clients can talk to the pipe directly. The "Raw Pipe Protocol" task shows how. C and C++ hosts can use the native client `HSMAdvisorIntegration.dll` instead (see [native/README.md](native/README.md)).
 
 ## Overview
 
