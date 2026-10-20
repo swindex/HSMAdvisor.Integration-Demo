@@ -53,20 +53,51 @@ HSMAdvisor.Integration-Demo/
 ├── lib/
 │   ├── net48/HSMAdvisor.Integration.dll    # .NET Framework 4.8 build
 │   └── net8.0/HSMAdvisor.Integration.dll   # .NET 8+ build
-└── IntegrationDemo/                   # Demo application (net48 + net8.0-windows)
-    ├── Program.cs                     # Application entry point
-    ├── MainForm.cs                    # Main UI form with task tree
-    ├── MainForm.Designer.cs           # UI designer file
-    ├── DemoTask.cs                    # Base task class, TaskContext and output formatting
-    ├── IntegrationSession.cs          # The shared HSMAdvisorClient
-    ├── Samples.cs                     # Sample end mill / drill calculations
-    └── Tasks/                         # Demo task implementations
-        ├── ConnectionTasks.cs         # Locate, Hello, show main window
-        ├── ReferenceDataTasks.cs      # Tool types, materials, machines, library lookup
-        ├── DialogTasks.cs             # Interactive HSMAdvisor dialogs
-        ├── CalculationTasks.cs        # Headless calculations
-        └── AdvancedTasks.cs           # Units, translations, cancel, errors, raw pipe
+├── IntegrationDemo/                   # Demo application (net48 + net8.0-windows)
+│   ├── Program.cs                     # Application entry point
+│   ├── MainForm.cs                    # Main UI form with task tree
+│   ├── MainForm.Designer.cs           # UI designer file
+│   ├── DemoTask.cs                    # Base task class, TaskContext and output formatting
+│   ├── IntegrationSession.cs          # The shared HSMAdvisorClient
+│   ├── Samples.cs                     # Sample end mill / drill calculations
+│   └── Tasks/                         # Demo task implementations
+│       ├── ConnectionTasks.cs         # Locate, Hello, show main window
+│       ├── ReferenceDataTasks.cs      # Tool types, materials, machines, library lookup
+│       ├── DialogTasks.cs             # Interactive HSMAdvisor dialogs
+│       ├── CalculationTasks.cs        # Headless calculations
+│       └── AdvancedTasks.cs           # Units, translations, cancel, errors, raw pipe
+└── IntegrationSamples/                # Console code samples (net48 + net8.0)
+    ├── Program.cs                     # Creates the client, sample menu, Ctrl+C and error handling
+    ├── ISample.cs                     # Sample interface
+    ├── SampleData.cs                  # Sample end mill / drill calculations
+    └── Samples/                       # One file per sample, 01_Connect.cs ... 12_RawPipeProtocol.cs
 ```
+
+## Code Samples (Console)
+
+`IntegrationSamples` is a console app with short, commented samples that call `HSMAdvisorClient` directly, without the demo application's UI and logging code. Each sample is one file in `IntegrationSamples/Samples/` that you can copy into your own integration.
+
+```
+dotnet run --project IntegrationSamples -f net8.0          # pick a sample from the menu
+dotnet run --project IntegrationSamples -f net8.0 -- 3     # run sample 3
+```
+
+| # | Sample | Messages |
+|---|---|---|
+| 1 | Locate HSMAdvisor, check its version, connect | `Hello` |
+| 2 | Tool types, tool materials, coatings, machines, workpiece materials | `GetReferenceData`, `FindMaterials` |
+| 3 | End mill speeds and feeds, conventional vs. HSM with chip thinning | `Calculate` |
+| 4 | Drilling and slotting | `Calculate` |
+| 5 | Calculating for a machine profile | `GetReferenceData`, `Calculate` |
+| 6 | Converting a calculation to metric | `ConvertUnits` |
+| 7 | Editing a calculation in the HSMAdvisor calculator | `EditCalculation` |
+| 8 | Material, machine and library cut pickers | `SelectMaterial`, `SelectMachine`, `SelectCut` |
+| 9 | Saving a cut to the tool library, then finding and loading the tool | `AddCut`, `FindTools`, `GetTool` |
+| 10 | Text in the user's HSMAdvisor language | `Translate` |
+| 11 | Cancelling a dialog from code; error and busy responses | `EditCalculation`, `GetTool`, `SelectMaterial` |
+| 12 | Talking to the pipe without the client library | raw frames |
+
+Samples 7, 8, 9 and 11 open HSMAdvisor dialogs. Press Ctrl+C to cancel a running sample; this also closes any dialog it opened.
 
 ## Getting Started
 

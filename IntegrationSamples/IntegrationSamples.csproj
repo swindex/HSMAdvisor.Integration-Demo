@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    HSMAdvisor.Integration code samples: small, self-contained console examples that call
+    HSMAdvisorClient directly. Run with "dotnet run -f net8.0" and pick a sample from the menu,
+    or pass the sample number as an argument.
+
+    Builds for both frameworks HSMAdvisor.Integration ships for:
+      * net48   - .NET Framework hosts (e.g. Mastercam 2020-2026)
+      * net8.0  - .NET (Core) hosts (e.g. Mastercam 2027 on .NET 10)
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net48</TargetFrameworks>
+    <RootNamespace>IntegrationSamples</RootNamespace>
+    <AssemblyName>HSMAdvisor.Integration-Samples</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Version>1.0.1</Version>
+    <Product>HSMAdvisor.Integration Samples</Product>
+    <Company>HSMAdvisor Inc.</Company>
+    <Copyright>© Eldar Gerfanov, HSMAdvisor Inc.</Copyright>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <!-- HSMAdvisor.Integration ships a net48 and a net8.0 build -->
+    <IntegrationTfm Condition="$(TargetFramework.StartsWith('net4'))">net48</IntegrationTfm>
+    <IntegrationTfm Condition="!$(TargetFramework.StartsWith('net4'))">net8.0</IntegrationTfm>
+    <AssemblyVersion>3.2.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="HSMAdvisor.Integration">
+      <HintPath>..\lib\$(IntegrationTfm)\HSMAdvisor.Integration.dll</HintPath>
+    </Reference>
+    <!-- HSMAdvisor.Integration is built against Newtonsoft.Json 13.0.3 -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>
