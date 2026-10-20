@@ -8,7 +8,7 @@ namespace IntegrationDemo
     ///
     /// A calculation is a Tool record (geometry) plus a Cut record (cutting parameters). Only set what
     /// you know: fields left unset take HSMAdvisor's defaults for a new calculation. Values shared by
-    /// both records (diameter, stickout, hsm, hss) are read from the Cut when set there.
+    /// both records (Diameter, Stickout, Chip_Thinning, HSM) are read from the Cut when set there.
     /// </summary>
     public static class Samples
     {

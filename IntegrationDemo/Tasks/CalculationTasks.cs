@@ -81,7 +81,7 @@ namespace IntegrationDemo.Tasks
         public HSMMachiningCalculationTask()
         {
             Name = "HSM Machining Calculation";
-            Description = "Calculates the same light-stepover cut twice: conventionally, and with high speed machining (Cut.Hss) plus radial chip thinning compensation (Cut.Hsm). Shows how HSMAdvisor raises the feed to keep the real chip thickness.";
+            Description = "Calculates the same light-stepover cut twice: conventionally, and with high speed machining (Cut.HSM) plus radial chip thinning compensation (Cut.Chip_Thinning). Shows how HSMAdvisor raises the feed to keep the real chip thickness.";
             Category = "Calculations";
 
             AddEndMillParameters(0.5, 5, 1.0, 0.05);
@@ -91,18 +91,18 @@ namespace IntegrationDemo.Tasks
         {
             ctx.Write(OutputFormatter.FormatHeader("HSM MACHINING CALCULATION"));
 
-            ctx.Write(OutputFormatter.FormatStep(1, "Conventional milling (hss = false, hsm = false)..."));
+            ctx.Write(OutputFormatter.FormatStep(1, "Conventional milling (HSM = false, Chip_Thinning = false)..."));
             var conventional = BuildEndMill(parameterValues);
-            conventional.Cut.Hss = false;
-            conventional.Cut.Hsm = false;
+            conventional.Cut.HSM = false;
+            conventional.Cut.Chip_Thinning = false;
             var conventionalResult = await CalculationHelper.CalculateAsync(ctx, conventional);
 
-            ctx.Write(OutputFormatter.FormatStep(2, "High speed machining with chip thinning (hss = true, hsm = true)..."));
+            ctx.Write(OutputFormatter.FormatStep(2, "High speed machining with chip thinning (HSM = true, Chip_Thinning = true)..."));
             var hsm = BuildEndMill(parameterValues);
-            ctx.Write(OutputFormatter.FormatApiProperty("calc.Cut.Hss (high speed machining)", true));
-            ctx.Write(OutputFormatter.FormatApiProperty("calc.Cut.Hsm (radial chip thinning)", true));
-            hsm.Cut.Hss = true;
-            hsm.Cut.Hsm = true;
+            ctx.Write(OutputFormatter.FormatApiProperty("calc.Cut.HSM (high speed machining)", true));
+            ctx.Write(OutputFormatter.FormatApiProperty("calc.Cut.Chip_Thinning (radial chip thinning)", true));
+            hsm.Cut.HSM = true;
+            hsm.Cut.Chip_Thinning = true;
             var hsmResult = await CalculationHelper.CalculateAsync(ctx, hsm);
 
             ctx.Write(OutputFormatter.FormatStep(3, "Comparison:"));
@@ -113,7 +113,7 @@ namespace IntegrationDemo.Tasks
             {
                 ctx.Write(OutputFormatter.FormatSuccess($"HSM feed is {hsmResult.Cut.Feed / conventionalResult.Cut.Feed * 100:0}% of the conventional feed."));
             }
-            ctx.Write(OutputFormatter.FormatInfo("Note the field names: \"hsm\" is chip thinning, \"hss\" is high speed machining."));
+            ctx.Write(OutputFormatter.FormatInfo("On the wire, Cut.Chip_Thinning is the \"chip_thinning\" key and Cut.HSM is the \"high_speed_machining\" key."));
         }
     }
 

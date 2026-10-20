@@ -25,12 +25,12 @@ namespace IntegrationSamples.Samples
             Print(result);
 
             // Same cut with:
-            //   Hss = true  -> high speed machining (HSMAdvisor's "HSM" toolpath option)
-            //   Hsm = true  -> radial chip thinning compensation
-            // Note the names: "hsm" is chip thinning, "hss" is high speed machining.
+            //   HSM = true            -> high speed machining (HSMAdvisor's "HSM" toolpath option)
+            //   Chip_Thinning = true  -> radial chip thinning compensation
+            // On the wire (raw JSON) these are the "high_speed_machining" and "chip_thinning" keys.
             CalculationData highSpeed = SampleData.EndMill(diameter: 0.5, flutes: 4, doc: 1.0, woc: 0.05);
-            highSpeed.Cut.Hss = true;
-            highSpeed.Cut.Hsm = true;
+            highSpeed.Cut.HSM = true;
+            highSpeed.Cut.Chip_Thinning = true;
             CalculationData highSpeedResult = await CalculateAsync(client, highSpeed, ct);
 
             Console.WriteLine("High speed machining with chip thinning:");

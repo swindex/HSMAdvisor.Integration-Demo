@@ -162,8 +162,8 @@ calc.Tool.Flute_N = 4;
 calc.Cut.Material_id = 227;   // 1018 steel, license-free
 calc.Cut.Doc = 0.5;
 calc.Cut.Woc = 0.1;
-calc.Cut.Hss = true;           // high speed machining
-calc.Cut.Hsm = true;           // radial chip thinning compensation
+calc.Cut.HSM = true;           // high speed machining (wire key "high_speed_machining")
+calc.Cut.Chip_Thinning = true; // radial chip thinning compensation (wire key "chip_thinning")
 
 var result = await client.RequestAsync<CalculationPayload>(MessageTypes.Calculate,
     new CalculateRequest { Calculation = calc, PresetSpeeds = true }, 0, CancellationToken.None);

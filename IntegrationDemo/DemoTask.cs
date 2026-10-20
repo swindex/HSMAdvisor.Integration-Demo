@@ -301,8 +301,8 @@ namespace IntegrationDemo
             {
                 sb.Append(FormatProperty("Peck", Length(c.Peck, c.Peck_m)));
             }
-            sb.Append(FormatProperty("High speed machining (hss)", c.Hss));
-            sb.Append(FormatProperty("Chip thinning (hsm)", c.Hsm));
+            sb.Append(FormatProperty("High speed machining (high_speed_machining)", c.HSM));
+            sb.Append(FormatProperty("Chip thinning (chip_thinning)", c.Chip_Thinning));
 
             sb.Append(FormatSection("Speeds and feeds"));
             sb.Append(FormatProperty("RPM", c.Rpm.ToString("N0")));
